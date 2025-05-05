@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeculationApp.Maui.Code.Windows.AddPairWindow"
+             Title="Add Pair">
+    
+    <Grid RowDefinitions="*, Auto"
+          ColumnDefinitions="*, *"
+          Padding="10"
+          VerticalOptions="Center"
+          HorizontalOptions="Center">
+
+        <!-- Base Currency -->
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5">
+            <Label Text="Base Currency"/>
+            <Picker ItemsSource="{Binding BaseCurrencies}" 
+                    SelectedItem="{Binding SelectedBaseCurrency}" 
+                    HeightRequest="40"/>
+        </VerticalStackLayout>
+
+        <!-- Trade Currency -->
+        <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5">
+            <Label Text="Trade Currency"/>
+            <Picker ItemsSource="{Binding TradeCurrencies}" 
+                    SelectedItem="{Binding SelectedTradeCurrency}" 
+                    HeightRequest="40"
+                    IsEnabled="{Binding TradeCurrencies, Converter={StaticResource NullToBoolConverter}}"/>
+        </VerticalStackLayout>
+
+        <!-- Button -->
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="Create Pair"
+                HeightRequest="40"
+                Command="{Binding CreateNewPairCommand}"
+                Clicked="CreatePairClick">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding SelectedBaseCurrency}"
+                             Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding SelectedTradeCurrency}"
+                             Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+
+    </Grid>
+</ContentPage>

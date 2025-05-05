@@ -1,9 +1,20 @@
-﻿namespace SpeculationApp.Maui;
+﻿using SpeculationApp.Maui.Code.Views;
 
-public partial class AppShell : Shell
+namespace SpeculationApp.Maui
 {
-	public AppShell()
-	{
-		InitializeComponent();
-	}
+    public partial class AppShell : Shell
+    {
+        public AppShell()
+        {
+            InitializeComponent();
+
+            Routing.RegisterRoute("mainMenu", typeof(MainMenuView));
+
+            Routing.RegisterRoute("currencyMenu", typeof(CurrencyMenuView));
+            Routing.RegisterRoute("operationMenu", typeof(OperationMenuView));
+
+            Routing.RegisterRoute("pairMenu", typeof(PairMenuView));
+            Routing.RegisterRoute("convertationMenu", typeof(ConvertationMenuView));
+        }
+    }
 }

@@ -1,0 +1,32 @@
+﻿<Window x:Class="SpeculationApp.Wpf.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpeculationApp.Wpf.Windows"
+        xmlns:views="clr-namespace:SpeculationApp.Wpf.Views"
+        xmlns:viewModels="clr-namespace:SpeculatorApp.Application.ViewModels;assembly=SpeculatorApp.Application"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="650" Width="1000">
+    <Grid>
+        <ContentControl Content="{Binding CurrentMenu}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:MainMenuViewModel}">
+                    <views:MainMenuView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:PairMenuViewModel}">
+                    <views:PairMenuView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:CurrencyMenuViewModel}">
+                    <views:CurrencyMenuView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:OperationMenuViewModel}">
+                    <views:OperationMenuView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:ConvertationMenuViewModel}">
+                    <views:ConvertationMenuView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</Window>

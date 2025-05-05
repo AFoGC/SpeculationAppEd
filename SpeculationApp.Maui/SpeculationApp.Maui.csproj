@@ -16,7 +16,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.speculationapp.maui</ApplicationId>
-		<ApplicationIdGuid>4bc32591-0748-40a0-97ec-7f584f83c2da</ApplicationIdGuid>
+		<ApplicationIdGuid>5aa0993f-2360-4bd0-97da-52f8d2ac325c</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -50,6 +50,36 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SpeculationApp.Domain\SpeculationApp.Domain.csproj" />
+	  <ProjectReference Include="..\SpeculationApp.Infrastructure\SpeculationApp.Infrastructure.csproj" />
+	  <ProjectReference Include="..\SpeculatorApp.Application\SpeculatorApp.Application.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Code\Views\ConvertationMenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Views\CurrencyMenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Views\MainMenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Views\OperationMenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Views\PairMenuView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Windows\AddPairWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Code\Windows\MainWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeculationApp.Maui.Code.Views.PairMenuView"
+             BackgroundColor="White"
+             Title="Pair Menu"
+             Padding="10">
+
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Top toolbar -->
+        <HorizontalStackLayout Spacing="10" Grid.Row="0">
+            <Button Text="Go to Main Menu"
+                    WidthRequest="100"
+                    Command="{Binding NavigateToMainMenuCommand}" />
+
+            <Button Text="Edit Operation"
+                    WidthRequest="120"
+                    Command="{Binding EditConvertationCommand}"
+                    IsEnabled="{Binding SelectedConvertation, Converter={StaticResource NullToBoolConverter}, ConverterParameter=Invert}" />
+
+            <Button Text="Add Convertation"
+                    WidthRequest="120"
+                    Command="{Binding AddConvertationCommand}" />
+
+            <Button Text="Remove Convertation"
+                    WidthRequest="120"
+                    Command="{Binding RemoveConvertationCommand}"
+                    IsEnabled="{Binding SelectedConvertation, Converter={StaticResource NullToBoolConverter}, ConverterParameter=Invert}" />
+        </HorizontalStackLayout>
+
+        <!-- Currency Pair Label -->
+        <HorizontalStackLayout Grid.Row="1" Margin="0,10">
+            <Label Text="{Binding Pair.BaseCurrency.Code}"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <Label Text="/"
+                   FontSize="16" />
+            <Label Text="{Binding Pair.TradeCurrency.Code}"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+
+        <!-- Convertation List -->
+        <ScrollView Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Pair.Convertations}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedConvertation}">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="150,50,150,150" Padding="5">
+                        <Label Text="Base Currency Amount" FontAttributes="Bold"/>
+                        <Label Text="Flow" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="Trade Currency Amount" FontAttributes="Bold"/>
+                        <Label Text="Date" FontAttributes="Bold"/>
+                    </Grid>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="150,50,150,150" Padding="5">
+                            <Label Grid.Column="0"
+                                   Text="{Binding BaseCurrencyAmount}" />
+
+                            <Label Grid.Column="1"
+                                   HorizontalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding ToTradeCurrency}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="->" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding ToTradeCurrency}"
+                                                 Value="False">
+                                        <Setter Property="Text" Value="&lt;-" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <Label Grid.Column="2"
+                                   Text="{Binding TradeCurrencyAmount}" />
+
+                            <Label Grid.Column="3"
+                                   Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
+</ContentPage>

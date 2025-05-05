@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeculationApp.Maui.Code.Views.ConvertationMenuView"
+             xmlns:converters="clr-namespace:SpeculationApp.Maui.Code.Converters"
+             Title="ConvertationMenuView">
+    
+    <ContentPage.Resources>
+        <converters:BoolToIndexConverter x:Key="BoolToIndexConverter" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15">
+
+            <!-- Top Buttons (Toolbar imitation) -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Go to Pair Menu"
+                        WidthRequest="120" HeightRequest="40"
+                        Command="{Binding GoBackCommand}" />
+
+                <Button Text="Update Convertation"
+                        WidthRequest="160" HeightRequest="40"
+                        Command="{Binding UpdateConvertationCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding Convertation.IsChanged}"
+                                     Value="False">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </HorizontalStackLayout>
+
+            <!-- Pair Title -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Label Text="{Binding Pair.BaseCurrency.Code}" FontSize="20" FontAttributes="Bold"/>
+                <Label Text="/" FontSize="20" FontAttributes="Bold"/>
+                <Label Text="{Binding Pair.TradeCurrency.Code}" FontSize="20" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+            <!-- Form Fields -->
+            <Grid ColumnDefinitions="*, 2*"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+
+                <!-- Labels -->
+                <Label Text="Id:" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Label Text="Base Currency Amount:" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Label Text="Trade Currency Amount:" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Label Text="Flow Direction:" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Label Text="Date:" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalOptions="Center" HorizontalOptions="End"/>
+
+                <!-- Inputs -->
+                <Entry Text="{Binding Convertation.Id}" IsReadOnly="True"
+                       FontSize="22" Grid.Row="0" Grid.Column="1"/>
+
+                <Entry Text="{Binding Convertation.BaseCurrencyAmount}"
+                       FontSize="22" Grid.Row="1" Grid.Column="1"/>
+
+                <Entry Text="{Binding Convertation.TradeCurrencyAmount}"
+                       FontSize="22" Grid.Row="2" Grid.Column="1"/>
+
+                <Picker ItemsSource="{Binding FlowDirections}"
+                        SelectedIndex="{Binding Convertation.ToTradeCurrency, Converter={StaticResource BoolToIndexConverter}}"
+                        FontSize="18" Grid.Row="3" Grid.Column="1" Title="Select direction"/>
+
+                <DatePicker Date="{Binding Convertation.Date}"
+                            FontSize="18" Grid.Row="4" Grid.Column="1"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

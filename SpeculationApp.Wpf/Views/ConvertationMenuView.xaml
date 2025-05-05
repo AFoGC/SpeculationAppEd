@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="SpeculationApp.Wpf.Views.ConvertationMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:con="clr-namespace:SpeculationApp.Wpf.Converters"
+             xmlns:local="clr-namespace:SpeculationApp.Wpf.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <UserControl.Resources>
+        <con:BoolToIndexConverter x:Key="boolToIndexConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0">
+            <Button Content="Go to Pair Menu" Width="120" Height="21"  
+                    HorizontalAlignment="Left" Command="{Binding GoBackCommand}" MouseEnter="Button_MouseEnter"/>
+
+            <Button Content="Update Convertation" Width="120" Height="21"  
+                    HorizontalAlignment="Left" Command="{Binding UpdateConvertationCommand}" MouseEnter="Button_MouseEnter">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Convertation.IsChanged}" Value="True">
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </ToolBar>
+
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="1">
+            <TextBlock Text="{Binding Pair.BaseCurrency.Code}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="/" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Pair.TradeCurrency.Code}" FontSize="20" FontWeight="Bold"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="22"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontSize" Value="22" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                </Style>
+            </Grid.Resources>
+
+            <TextBlock Grid.Row="0" Text="Id: "/>
+            <TextBlock Grid.Row="1" Text="Base Currency Amount: "/>
+            <TextBlock Grid.Row="2" Text="Trade Currency Amount: "/>
+            <TextBlock Grid.Row="3" Text="Flow Direction: "/>
+            <TextBlock Grid.Row="4" Text="Date: "/>
+            
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Convertation.Id, Mode=OneWay}" IsReadOnly="True" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Convertation.BaseCurrencyAmount, UpdateSourceTrigger=LostFocus}" x:Name="BaseAmountBox"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Convertation.TradeCurrencyAmount, UpdateSourceTrigger=LostFocus}" x:Name="TradeAmountBox"/>
+
+            <ComboBox ItemsSource="{Binding FlowDirections}" SelectedIndex="{Binding Convertation.ToTradeCurrency, Converter={StaticResource boolToIndexConverter}}"
+                      Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="250">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="SelectedIndex" Value="-1"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Convertation.ToTradeCurrency}" Value="False">
+                                <Setter Property="SelectedIndex" Value="0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Convertation.ToTradeCurrency}" Value="True">
+                                <Setter Property="SelectedIndex" Value="1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
+
+            <DatePicker SelectedDate="{Binding Convertation.Date}" FontSize="18" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Width="250" x:Name="DateBox"/>
+        </Grid>
+    </Grid>
+</UserControl>

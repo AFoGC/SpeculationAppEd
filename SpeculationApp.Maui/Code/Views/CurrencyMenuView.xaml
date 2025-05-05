@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SpeculationApp.Maui.Code.Views.CurrencyMenuView"
+             Title="Currency Menu">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="15">
+
+            <!-- Toolbar imitation -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Go to Main Menu"
+                        WidthRequest="100"
+                        Command="{Binding NavigateToMainMenuCommand}" />
+
+                <Button Text="Edit Operation"
+                        WidthRequest="120"
+                        Command="{Binding EditOperationCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding SelectedOperation}"
+                                     Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <Button Text="Add Operation"
+                        WidthRequest="120"
+                        Command="{Binding AddOperationCommand}" />
+
+                <Button Text="Remove Operation"
+                        WidthRequest="120"
+                        Command="{Binding RemoveOperationCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding SelectedOperation}"
+                                     Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </HorizontalStackLayout>
+
+            <!-- Currency Info -->
+            <HorizontalStackLayout Spacing="10" Padding="5">
+                <Label Text="Code:" FontSize="16" VerticalOptions="Center"/>
+                <Entry Text="{Binding Currency.Code}" WidthRequest="75" FontSize="16"/>
+
+                <Label Text="Name:" FontSize="16" VerticalOptions="Center"/>
+                <Entry Text="{Binding Currency.Name}" WidthRequest="150" FontSize="16"/>
+
+                <Label Text="Balance:" FontSize="16" VerticalOptions="Center"/>
+                <Entry Text="000.0000000" WidthRequest="100" FontSize="16" IsReadOnly="True"/>
+            </HorizontalStackLayout>
+
+            <!-- DataGrid imitation -->
+            <CollectionView ItemsSource="{Binding Currency.Operations}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedOperation}">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="150,150,150"
+                          Padding="5" BackgroundColor="#eee">
+                        <Label Text="Amount" FontAttributes="Bold" />
+                        <Label Text="Operation Type" Grid.Column="1" FontAttributes="Bold"/>
+                        <Label Text="Date" Grid.Column="2" FontAttributes="Bold"/>
+                    </Grid>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="150,150,150"
+                              Padding="5">
+                            <Label Text="{Binding Amount}" />
+                            <Label Text="{Binding OperationType.Name}" Grid.Column="1"/>
+                            <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}" Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
