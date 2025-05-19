@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeculatorApp.Application",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeculationApp.Wpf", "SpeculationApp.Wpf\SpeculationApp.Wpf.csproj", "{337D6950-4E2B-4A85-81A5-06E37D904EAF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{2DC4158E-3AB3-41E4-AB9E-A3FF03BB7A94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{FA391F31-E0C8-4B39-8143-E8AA28020258}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E97A0A94-FD71-4A54-AF4D-CEA6B2FE2816} = {FA391F31-E0C8-4B39-8143-E8AA28020258}
+		{2BD9AC71-75A6-4C23-8185-47742D68E885} = {2DC4158E-3AB3-41E4-AB9E-A3FF03BB7A94}
+		{46345371-B8A0-4D61-819E-CEBD3D20F095} = {2DC4158E-3AB3-41E4-AB9E-A3FF03BB7A94}
+		{933D08DC-E8F8-4D3F-8B76-1362553755FA} = {2DC4158E-3AB3-41E4-AB9E-A3FF03BB7A94}
+		{337D6950-4E2B-4A85-81A5-06E37D904EAF} = {FA391F31-E0C8-4B39-8143-E8AA28020258}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

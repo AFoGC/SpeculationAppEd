@@ -80,6 +80,7 @@
 
 
                     <DataGridTextColumn Header="Trade Currency Amount" Width="150" Binding="{Binding Path=TradeCurrencyAmount}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Exchange Rate" Width="150" Binding="{Binding Path=ExchangeRate}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Date" Width="150" Binding="{Binding Path=Date, StringFormat=dd.MM.yyyy}" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>

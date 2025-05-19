@@ -43,6 +43,7 @@ namespace SpeculatorApp.Application.ViewModels.EditViewModels
                 IsChanged = true;
 
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(ExchangeRate));
             }
         }
         public decimal TradeCurrencyAmount
@@ -54,6 +55,7 @@ namespace SpeculatorApp.Application.ViewModels.EditViewModels
                 IsChanged = true;
 
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(ExchangeRate));
             }
         }
         public bool ToTradeCurrency
@@ -77,6 +79,11 @@ namespace SpeculatorApp.Application.ViewModels.EditViewModels
 
                 OnPropertyChanged();
             }
+        }
+
+        public decimal ExchangeRate
+        {
+            get =>  _model.BaseCurrencyAmount / _model.TradeCurrencyAmount;
         }
 
         public void Update()
