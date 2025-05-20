@@ -35,7 +35,8 @@ namespace SpeculatorApp.Application.Factories
 
         public CurrencyEditViewModel CreateCurrency(CurrencyModel model, IEnumerable<OperationEditViewModel> operations)
         {
-            return new CurrencyEditViewModel(model, operations, _currencyUpdateService);
+            var viewModel = _tablesStore.Currencies.First(x => x.Id == model.Id);
+            return new CurrencyEditViewModel(model, operations, viewModel, _currencyUpdateService);
         }
 
         public OperationEditViewModel CreateOperation(OperationModel model, IEnumerable<OperationTypeReadViewModel> operationTypes)

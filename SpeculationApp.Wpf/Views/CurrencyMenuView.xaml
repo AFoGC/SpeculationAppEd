@@ -62,7 +62,7 @@
             <TextBox Text="{Binding Path=Currency.Name, UpdateSourceTrigger=PropertyChanged}" Width="150" FontSize="16"/>
 
             <TextBlock Text=" Balance: " FontSize="16" />
-            <TextBox Text="000.0000000" Width="100" FontSize="16" IsReadOnly="True"/>
+            <TextBox Text="{Binding Path=Currency.ReadViewModel.TotalAmount, Mode=OneWay}" Width="100" FontSize="16" IsReadOnly="True"/>
         </StackPanel>
 
         <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="2" Margin="10">
