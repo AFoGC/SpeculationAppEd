@@ -75,6 +75,7 @@ namespace SpeculatorApp.Application.ViewModels
             if (Currency != null && SelectedOperation != null)
             {
                 _currencyService.RemoveOperation(Currency, SelectedOperation);
+                Currency?.Update();
             }
         }
 

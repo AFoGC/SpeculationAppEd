@@ -18,13 +18,17 @@ namespace SpeculatorApp.Application.ViewModels.EditViewModels
         private CurrencyModel _model;
         private bool _isChanged;
 
-        public CurrencyEditViewModel(CurrencyModel model, IEnumerable<OperationEditViewModel> operations, CurrencyUpdateService updateService)
+        public CurrencyEditViewModel(CurrencyModel model, IEnumerable<OperationEditViewModel> operations, CurrencyReadViewModel readViewModel, CurrencyUpdateService updateService)
         {
             _operations = new ObservableCollection<OperationEditViewModel>(operations);
             _updateService = updateService;
 
             _model = model;
+
+            ReadViewModel = readViewModel;
         }
+
+        public CurrencyReadViewModel ReadViewModel { get; }
 
         public bool IsChanged
         {
