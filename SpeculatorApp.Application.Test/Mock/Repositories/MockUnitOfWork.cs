@@ -87,11 +87,11 @@ namespace SpeculatorApp.Application.Test.Mock.Repositories
                 Date = DateTime.Now.AddDays(-1)
             });
 
-            ICurrencyRepository currencyRepository = new MockCurrencyRepository(currencies);
-            IPairRepository pairRepository = new MockPairRepository(pairs);
-            IConvertationRepository convertationRepository = new MockConvertationRepository(convertations);
-            IOperationRepository operationRepository = new MockOperationRepository(operations, operationTypes);
-            IOperationTypeRepository operationTypeRepository = new MockOperationTypeRepository(operationTypes);
+            var currencyRepository = new MockCurrencyRepository(currencies);
+            var pairRepository = new MockPairRepository(pairs);
+            var convertationRepository = new MockConvertationRepository(convertations);
+            var operationRepository = new MockOperationRepository(operations, operationTypes);
+            var operationTypeRepository = new MockOperationTypeRepository(operationTypes);
 
             return new MockUnitOfWork(
                 currencyRepository,
