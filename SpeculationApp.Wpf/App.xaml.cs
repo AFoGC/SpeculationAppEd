@@ -36,13 +36,24 @@ namespace SpeculationApp.Wpf
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            string connectionString = "Datasource=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)! + "\\Films.db";
+            string dbPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)! + "\\Films.db";
+            bool isDbExist = File.Exists(dbPath);
+
+            string connectionString = "Datasource=" + dbPath;
             SqliteConnection connection = new SqliteConnection(connectionString);
 
             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
             var opt = optionsBuilder.UseSqlite(connection).Options;
             TradingContext tradingContext = new TradingContext(opt);
-            tradingContext.Database.Migrate();
+
+            if (isDbExist)
+            {
+                tradingContext.Database.Migrate();
+            }
+            else
+            {
+                tradingContext.Database.EnsureCreated();
+            }
 
             IUnitOfWork unitOfWork = new UnitOfWork(tradingContext);
             ReadTablesStore store = new ReadTablesStore();
